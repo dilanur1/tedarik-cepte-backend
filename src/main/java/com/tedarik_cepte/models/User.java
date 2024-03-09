@@ -26,4 +26,8 @@ public class User {
     private String username;
     private String password;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Cart cart;
+
+
 }
