@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,13 +27,16 @@ public class RegisterController {
                                           @RequestParam("username") String username,
                                           @RequestParam("password") String password) {
 
+        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt());
+
+
         if (first_name.isEmpty() || firm.isEmpty() || address.isEmpty() || phone.isEmpty() ||
         username.isEmpty() || password.isEmpty()) {
             return new ResponseEntity("Lütfen boş alanları doldurunuz.", HttpStatus.BAD_REQUEST);
         }
 
         int result = userService.registerNewUserServiceMethod(first_name, last_name,
-                firm, address, phone, username, password);
+                firm, address, phone, username, hashed_password);
 
         if (result != 1) {
            return new ResponseEntity("Kullanıcı kaydedilemedi!", HttpStatus.BAD_REQUEST);

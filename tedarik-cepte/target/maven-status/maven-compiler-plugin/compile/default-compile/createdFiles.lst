@@ -1,0 +1,14 @@
+com\tedarik_cepte\models\Fruit.class
+com\tedarik_cepte\models\CartProduct.class
+com\tedarik_cepte\rest_controllers\ProductController.class
+com\tedarik_cepte\repository\ProductRepository.class
+com\tedarik_cepte\services\CartService.class
+com\tedarik_cepte\rest_controllers\FruitController.class
+com\tedarik_cepte\models\Product.class
+com\tedarik_cepte\services\FruitService.class
+com\tedarik_cepte\models\Vegetable.class
+com\tedarik_cepte\services\ProductService.class
+com\tedarik_cepte\repository\CartProductRepository.class
+com\tedarik_cepte\repository\FruitRepository.class
+com\tedarik_cepte\repository\CartRepository.class
+com\tedarik_cepte\models\Cart.class
