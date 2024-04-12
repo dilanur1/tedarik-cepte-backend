@@ -24,12 +24,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO USERS(first_name, last_name, firm, address, phone, username, password) VALUES(:first_name, :last_name, :firm, :address, :phone, :username, :password)", nativeQuery = true)
+    @Query(value = "INSERT INTO USERS(first_name, last_name, firm, address, phone, username, password, role) VALUES(:first_name, :last_name, :firm, :address, :phone, :username, :password, :role)", nativeQuery = true)
     int registerNewUser(@Param("first_name") String first_name,
                         @Param("last_name") String last_name,
                         @Param("firm") String firm,
                         @Param("address") String address,
                         @Param("phone") String phone,
                         @Param("username") String username,
-                        @Param("password") String password);
+                        @Param("password") String password,
+                        @Param("role") String role);
+
+    @Query(value = "SELECT * FROM users", nativeQuery = true)
+    List<User> getUsers();
 }

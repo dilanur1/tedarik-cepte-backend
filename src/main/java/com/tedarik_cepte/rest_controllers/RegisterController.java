@@ -36,7 +36,7 @@ public class RegisterController {
         }
 
         int result = userService.registerNewUserServiceMethod(first_name, last_name,
-                firm, address, phone, username, hashed_password);
+                firm, address, phone, username, hashed_password, "user");
 
         if (result != 1) {
            return new ResponseEntity("Kullanıcı kaydedilemedi!", HttpStatus.BAD_REQUEST);

@@ -1,10 +1,12 @@
 package com.tedarik_cepte.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.*;
 
 
 @Data
@@ -18,19 +20,28 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int product_id;
+    private Long cart_id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "cart_product", joinColumns = @JoinColumn(name = "cart_id") , inverseJoinColumns = @JoinColumn(name = "product_id") )
-    private Set<Product> products;
+    @ElementCollection
+    @CollectionTable(name = "cart_product", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyJoinColumn(name = "product_id")
+    @Column(name = "quantity")
+    private Map<Product, Double> products = new HashMap<>();
 
-    public Cart(User user) {
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
+    private List<CartProduct> cartProducts;
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "cart_id=" + cart_id +
+                '}';
     }
 
-    public void addProduct(Product product) {
-    }
 }

@@ -12,11 +12,12 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
     public int registerNewUserServiceMethod(String first_name, String last_name, String firm,
                                             String address, String phone, String username,
-                                            String password) {
+                                            String password, String role) {
         return userRepository.registerNewUser(first_name, last_name, firm, address, phone,
-                username, password);
+                username, password, role);
     }
 
     public List<String> checkUsername(String username) {
@@ -29,5 +30,11 @@ public class UserService {
 
     public User getUserDetailsByUsername(String username) {
         return userRepository.getUserDetailsByUsername(username);
+    }
+
+    public List<User> getUsers() {
+        System.out.println("USERRRRR");
+        List<User> userList = userRepository.getUsers();
+        return userList;
     }
 }

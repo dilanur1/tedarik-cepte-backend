@@ -1,10 +1,11 @@
 package com.tedarik_cepte.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -22,9 +23,13 @@ public class Product {
 
     private String category;
     private String name;
-    private Double price;
+    private double price;
 
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<CartProduct> cartProducts;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    private Set<Cart> carts;
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<OrderItem> orderItems;
 }
